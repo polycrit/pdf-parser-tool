@@ -23,7 +23,9 @@ if not os.path.exists("res"):
 for name in file_names:
     fname = folder_path + "/" + name
     with fitz.open(fname) as doc:  # open document
-        text = chr(12).join([page.get_text() for page in doc])
+        text = (
+            chr(12).join([page.get_text() for page in doc]).strip().replace("\n", " ")
+        )
     # write as a binary file to support non-ASCII characters
     pathlib.Path("res/" + name + ".txt").write_bytes(text.encode())
 
